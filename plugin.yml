@@ -1,0 +1,19 @@
+---
+name: refConsoleExporter
+main: ref\product\consoleexporter\Main
+version: 1.0.0
+api: [ 4.0.0 ]
+authors: [ ref-team, PresentKim ]
+description: Exports the console to a html file.
+
+commands:
+  consoleexport:
+    description: Command for exporting the console to a html file
+    aliases: [ ce ]
+    permission: consoleexporter.cmd
+
+permissions:
+  consoleexporter.cmd:
+    description: Allows the user to export the console to a html file
+    default: op
+...
