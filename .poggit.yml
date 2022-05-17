@@ -1,0 +1,8 @@
+---
+branches:
+- main
+projects:
+  refConsoleExporter:
+    path: ""
+    icon: "assets/icon.png"
+...
