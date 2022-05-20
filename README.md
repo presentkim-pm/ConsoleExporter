@@ -42,9 +42,9 @@ You can download it as a png through the controls button of the html file.
 -----
 
 ## How To Use:
-1. Type `/console exporter` to start recoding.
+1. Type `/consoleexporter`(or `/ce`) to start recoding.
 2. Do anything you want to record.
-3. Retype `/console exporter` to stop recording.
+3. Retype `/consoleexporter`(or `/ce`) to stop recording.
 4. The result is output as an HTML file.
 - It'll be export to `{plugin_data}/refConsoleExporter/console-exporter-{timestamp}.html`
 
