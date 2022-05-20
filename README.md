@@ -32,6 +32,26 @@ This plugin is useful for creating test images of console-based plugins.
 It records the console and outputs it as an html file.  
 You can download it as a png through the controls button of the html file.
 
+#### Commands and Permissions
+|            |         name          | description                                         | extra                                               |
+|------------|:---------------------:|-----------------------------------------------------|:----------------------------------------------------|
+| Command    |    `consoleexport`    | -Start console recording <br/> -Export as html file | aliases: `ce`<br/>permission: `consoleexporter.cmd` |
+| Permission | `consoleexporter.cmd` | Allows use consoleexport command                    | default: `op`                                       |
+
+
+-----
+
+## How To Use:
+1. Type `/console exporter` to start recoding.
+2. Do anything you want to record.
+3. Retype `/console exporter` to stop recording.
+4. The result is output as an HTML file.
+- It'll be export to `{plugin_data}/refConsoleExporter/console-exporter-{timestamp}.html`
+
+### Advanced usage:
+##### `annotation` : Type anything starts with `#`. It will be not executing as command.
+##### `line-break` : If you type only `#`. It will be replace to empty line.
+
 -----
 
 ## Target software:

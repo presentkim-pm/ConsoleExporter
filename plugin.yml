@@ -4,16 +4,16 @@ main: ref\product\consoleexporter\Main
 version: 1.0.0
 api: [ 4.0.0 ]
 authors: [ ref-team, PresentKim ]
-description: Exports the console to a html file.
+description: Recording console and exports to html!
 
 commands:
   consoleexport:
-    description: Command for exporting the console to a html file
+    description: Start console recording or Stop and exports to HTML
     aliases: [ ce ]
     permission: consoleexporter.cmd
 
 permissions:
   consoleexporter.cmd:
-    description: Allows the user to export the console to a html file
+    description: Allows use consoleexport command
     default: op
 ...
