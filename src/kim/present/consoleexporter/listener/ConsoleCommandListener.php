@@ -1,37 +1,38 @@
 <?php
 
-/**            __   _____
- *  _ __ ___ / _| |_   _|__  __ _ _ __ ___
- * | '__/ _ \ |_    | |/ _ \/ _` | '_ ` _ \
- * | | |  __/  _|   | |  __/ (_| | | | | | |
- * |_|  \___|_|     |_|\___|\__,_|_| |_| |_|
+/**
+ *  ____                           _   _  ___
+ * |  _ \ _ __ ___  ___  ___ _ __ | |_| |/ (_)_ __ ___
+ * | |_) | '__/ _ \/ __|/ _ \ '_ \| __| ' /| | '_ ` _ \
+ * |  __/| | |  __/\__ \  __/ | | | |_| . \| | | | | | |
+ * |_|   |_|  \___||___/\___|_| |_|\__|_|\_\_|_| |_| |_|
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author  ref-team
- * @link    https://github.com/refteams
+ * @author  PresentKim (debe3721@gmail.com)
+ * @link    https://github.com/PresentKim
+ * @license https://www.gnu.org/licenses/lgpl-3.0 LGPL-3.0 License
  *
- *  &   ／l、
- *    （ﾟ､ ｡ ７
- *   　\、ﾞ ~ヽ   *
- *   　じしf_, )ノ
+ *   (\ /)
+ *  ( . .) ♥
+ *  c(")(")
  *
- * @noinspection PhpUnused
+ * @noinspection SpellCheckingInspection
  */
 
 declare(strict_types=1);
 
-namespace ref\product\consoleexporter\listener;
+namespace kim\present\consoleexporter\listener;
 
 use pocketmine\console\ConsoleCommandSender;
 use pocketmine\event\Listener;
 use pocketmine\event\server\CommandEvent;
 use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
-use ref\product\consoleexporter\Main;
+use kim\present\consoleexporter\Main;
 
 use function str_starts_with;
 use function trim;

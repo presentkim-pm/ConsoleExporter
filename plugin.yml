@@ -1,9 +1,9 @@
 ---
-name: refConsoleExporter
-main: ref\product\consoleexporter\Main
+name: ConsoleExporter
+main: kim\present\consoleexporter\Main
 version: 1.0.0
 api: [ 4.0.0 ]
-authors: [ ref-team, PresentKim ]
+author: PresentKim
 description: Recording console and exports to html!
 
 commands:
