@@ -2,7 +2,7 @@
 branches:
 - main
 projects:
-  refConsoleExporter:
+  ConsoleExporter:
     path: ""
     icon: "assets/icon.png"
     lint:
