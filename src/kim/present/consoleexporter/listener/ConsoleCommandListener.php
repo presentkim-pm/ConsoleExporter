@@ -42,7 +42,7 @@ class ConsoleCommandListener implements Listener{
     public function __construct(private Main $plugin){
     }
 
-    /** @priority MONITOR */
+    /** @priority HIGHEST */
     public function onCommandEvent(CommandEvent $event) : void{
         if(!$this->plugin->isRecording() || !($event->getSender() instanceof ConsoleCommandSender)){
             return;
