@@ -20,15 +20,15 @@
  *  ( . .) ♥
  *  c(")(")
  *
- * @noinspection SpellCheckingInspection
+ * @noinspection PhpUnused
  */
 
 declare(strict_types=1);
 
 namespace kim\present\consoleexporter\task;
 
-use pocketmine\scheduler\Task;
 use kim\present\consoleexporter\Main;
+use pocketmine\scheduler\Task;
 
 use function ob_flush;
 

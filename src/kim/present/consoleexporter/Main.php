@@ -20,43 +20,21 @@
  *  ( . .) ♥
  *  c(")(")
  *
- * @noinspection SpellCheckingInspection
+ * @noinspection PhpUnused
  */
 
 declare(strict_types=1);
 
 namespace kim\present\consoleexporter;
 
+use kim\present\consoleexporter\listener\ConsoleCommandListener;
+use kim\present\consoleexporter\task\FlushingBufferTask;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\TaskHandler;
 use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
-use kim\present\consoleexporter\listener\ConsoleCommandListener;
-use kim\present\consoleexporter\task\FlushingBufferTask;
-
-use function array_keys;
-use function array_map;
-use function array_values;
-use function explode;
-use function file_get_contents;
-use function file_put_contents;
-use function htmlspecialchars;
-use function implode;
-use function ob_end_flush;
-use function ob_start;
-use function ord;
-use function preg_match;
-use function preg_replace;
-use function rtrim;
-use function str_contains;
-use function str_replace;
-use function strlen;
-use function strrchr;
-use function substr;
-use function time;
-use function wordwrap;
 
 final class Main extends PluginBase{
     private const HTML_EOL = "<br/>";

@@ -20,19 +20,19 @@
  *  ( . .) ♥
  *  c(")(")
  *
- * @noinspection SpellCheckingInspection
+ * @noinspection PhpUnused
  */
 
 declare(strict_types=1);
 
 namespace kim\present\consoleexporter\listener;
 
+use kim\present\consoleexporter\Main;
 use pocketmine\console\ConsoleCommandSender;
 use pocketmine\event\Listener;
 use pocketmine\event\server\CommandEvent;
 use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
-use kim\present\consoleexporter\Main;
 
 use function str_starts_with;
 use function trim;
