@@ -118,8 +118,6 @@ final class Main extends PluginBase{
             $buffer = "";
         }
         $this->buffer = $buffer;
-        $title = "console-exporter-" . time();
-        $filename = "{$this->getDataFolder()}$title.html";
 
         $replacements = [
             "\r" => "",
@@ -167,10 +165,8 @@ final class Main extends PluginBase{
             }
         }
 
-        file_put_contents($filename, str_replace(["<!--[TITLE]-->", "<!--[CONTENTS]-->"], [
-            self::wrapTag("title", $title),
-            $htmlContents
-        ], $this->template));
+        $filename = $this->getDataFolder() . "console-exporter-" . time() . ".html";
+        file_put_contents($filename, str_replace("<!--[CONTENTS]-->", $htmlContents, $this->template));
         return $filename;
     }
 
