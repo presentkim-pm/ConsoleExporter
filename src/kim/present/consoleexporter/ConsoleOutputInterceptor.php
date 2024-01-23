@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace kim\present\consoleexporter;
 
+use Closure;
 use pocketmine\console\ConsoleCommandSender;
 use pocketmine\event\HandlerListManager;
 use pocketmine\event\Listener;
@@ -67,11 +68,11 @@ final class ConsoleOutputInterceptor implements Listener{
         }
 
         // Start capturing output buffer
-        ob_start($this->writeBuffer(...));
+        ob_start([$this, "writeBuffer"]);
         Server::getInstance()->getPluginManager()->registerEvents($this, $this->owningPlugin);
 
         // Start flushing output buffer for avoid console messages delayed
-        $this->taskHandler = $this->owningPlugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(ob_flush(...)), 1);
+        $this->taskHandler = $this->owningPlugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(Closure::fromCallable("ob_flush")), 1);
 
         $this->enabled = true;
     }
