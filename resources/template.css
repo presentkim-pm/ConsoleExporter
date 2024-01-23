@@ -29,6 +29,10 @@
     color: #FFF;
 }
 
+#contents>*:last-child {
+    display: none;
+}
+
 #contents .t0 { color: #000; }
 #contents .t1 { color: #00A; }
 #contents .t2 { color: #0A0; }
