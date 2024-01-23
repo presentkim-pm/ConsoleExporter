@@ -34,9 +34,6 @@ use pocketmine\event\server\CommandEvent;
 use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
 
-use function str_starts_with;
-use function trim;
-
 /** The event listener for outputting command input */
 class ConsoleCommandListener implements Listener{
     public function __construct(private Main $plugin){
@@ -49,7 +46,7 @@ class ConsoleCommandListener implements Listener{
         }
 
         $command = trim($event->getCommand());
-        if(str_starts_with($command, "#")){
+        if($command[0] === "#"){
             $event->cancel();
             $this->plugin->writeBuffer($command === "#" ? PHP_EOL : TextFormat::GRAY . $command . Terminal::$FORMAT_RESET . PHP_EOL);
         }else{
