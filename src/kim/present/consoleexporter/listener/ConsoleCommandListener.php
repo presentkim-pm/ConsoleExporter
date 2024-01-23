@@ -47,9 +47,9 @@ class ConsoleCommandListener implements Listener{
         $command = trim($event->getCommand());
         if($command[0] === "#"){
             $event->cancel();
-            $this->plugin->writeBuffer(TextFormat::GRAY . $command . TextFormat::RESET . PHP_EOL);
         }else{
-            $this->plugin->writeBuffer(TextFormat::GRAY . TextFormat::ITALIC . $command . TextFormat::RESET . PHP_EOL);
+            $this->plugin->writeBuffer(TextFormat::ITALIC);
         }
+        $this->plugin->writeBuffer(TextFormat::GRAY . $command . TextFormat::RESET . PHP_EOL);
     }
 }
