@@ -89,7 +89,7 @@ final class Main extends PluginBase{
 
     public function writeBuffer(string $buffer) : string{
         if($this->recording){
-            $this->buffer .= str_replace("\r\n", PHP_EOL, $buffer);
+            $this->buffer .= $buffer;
         }
 
         return $buffer;
@@ -122,7 +122,8 @@ final class Main extends PluginBase{
         $filename = "{$this->getDataFolder()}$title.html";
 
         $replacements = [
-            PHP_EOL => self::HTML_EOL,
+            "\r" => "",
+            "\n" => self::HTML_EOL,
             " " => self::HTML_SPACE,
             Terminal::$FORMAT_RESET => TextFormat::RESET,
             Terminal::$FORMAT_BOLD => TextFormat::BOLD,
