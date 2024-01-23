@@ -31,7 +31,7 @@ use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
 
 final class ConsoleOutputExporter{
-    private string $template;
+    private readonly string $template;
 
     public function __construct(
         string $templateHtml,
