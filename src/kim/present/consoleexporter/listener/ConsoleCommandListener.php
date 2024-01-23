@@ -31,7 +31,6 @@ use kim\present\consoleexporter\Main;
 use pocketmine\console\ConsoleCommandSender;
 use pocketmine\event\Listener;
 use pocketmine\event\server\CommandEvent;
-use pocketmine\utils\Terminal;
 use pocketmine\utils\TextFormat;
 
 /** The event listener for outputting command input */
@@ -48,9 +47,9 @@ class ConsoleCommandListener implements Listener{
         $command = trim($event->getCommand());
         if($command[0] === "#"){
             $event->cancel();
-            $this->plugin->writeBuffer($command === "#" ? PHP_EOL : TextFormat::GRAY . $command . Terminal::$FORMAT_RESET . PHP_EOL);
+            $this->plugin->writeBuffer(TextFormat::GRAY . $command . TextFormat::RESET . PHP_EOL);
         }else{
-            $this->plugin->writeBuffer(Terminal::$COLOR_GRAY . Terminal::$FORMAT_ITALIC . $command . Terminal::$FORMAT_RESET . PHP_EOL);
+            $this->plugin->writeBuffer(TextFormat::GRAY . TextFormat::ITALIC . $command . TextFormat::RESET . PHP_EOL);
         }
     }
 }
