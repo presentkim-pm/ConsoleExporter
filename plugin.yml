@@ -2,7 +2,7 @@
 name: ConsoleExporter
 main: kim\present\consoleexporter\Main
 version: 1.0.0
-api: [ 4.0.0 ]
+api: [ 5.0.0 ]
 author: PresentKim
 description: Recording console and exports to html!
 

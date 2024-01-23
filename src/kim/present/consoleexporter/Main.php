@@ -40,6 +40,7 @@ use function array_keys;
 use function array_map;
 use function array_values;
 use function explode;
+use function file_get_contents;
 use function file_put_contents;
 use function htmlspecialchars;
 use function implode;
@@ -51,7 +52,6 @@ use function preg_replace;
 use function rtrim;
 use function str_contains;
 use function str_replace;
-use function stream_get_contents;
 use function strlen;
 use function strrchr;
 use function substr;
@@ -70,10 +70,10 @@ final class Main extends PluginBase{
     private string $buffer = "";
 
     protected function onLoad() : void{
-        $template = stream_get_contents($this->getResource("template.html"));
-        $templateScript = stream_get_contents($this->getResource("template.js"));
-        $templateStyle = stream_get_contents($this->getResource("template.css"));
-        $templateControls = stream_get_contents($this->getResource("template.svg"));
+        $template = file_get_contents($this->getResourcePath("template.html"));
+        $templateScript = file_get_contents($this->getResourcePath("template.js"));
+        $templateStyle = file_get_contents($this->getResourcePath("template.css"));
+        $templateControls = file_get_contents($this->getResourcePath("template.svg"));
 
         $this->template = str_replace(
             ["<!--[SCRIPT]-->", "<!--[STYLE]-->", "<!--[CONTROLS]-->"],
