@@ -77,8 +77,10 @@ final class ConsoleOutputInterceptor implements Listener{
 		Server::getInstance()->getPluginManager()->registerEvents($this, $this->owningPlugin);
 
 		// Start flushing output buffer for avoid console messages delayed
-		$this->taskHandler =
-			$this->owningPlugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(ob_flush(...)), 1);
+		$this->taskHandler = $this->owningPlugin->getScheduler()->scheduleRepeatingTask(
+			new ClosureTask(ob_flush(...)),
+			1
+		);
 
 		$this->enabled = true;
 	}
