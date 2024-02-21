@@ -47,8 +47,8 @@ final class ConsoleOutputExporter{
 		string $templateControls
 	){
 		$this->template = strtr($templateHtml, [
-			"<!--[SCRIPT]-->" => self::wrapTag("script", $templateScript),
-			"<!--[STYLE]-->" => self::wrapTag("style", $templateStyle),
+			"<!--[SCRIPT]-->" => $this->wrapTag("script", $templateScript),
+			"<!--[STYLE]-->" => $this->wrapTag("style", $templateStyle),
 			"<!--[CONTROLS]-->" => $templateControls,
 		]);
 	}
