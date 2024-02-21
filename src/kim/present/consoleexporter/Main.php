@@ -53,17 +53,6 @@ final class Main extends PluginBase{
 		);
 	}
 
-	protected function onEnable() : void{
-		/**
-		 * This is a plugin that does not use data folders.
-		 * Delete the unnecessary data folder of this plugin for users.
-		 */
-		$dataFolder = $this->getDataFolder();
-		if(is_dir($dataFolder) && count(scandir($dataFolder)) <= 2){
-			rmdir($dataFolder);
-		}
-	}
-
 	protected function onDisable() : void{
 		$this->interceptor->disable();
 		$this->interceptor->flushBuffer();
