@@ -32,11 +32,8 @@ use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
-use function count;
+use function date;
 use function file_get_contents;
-use function is_dir;
-use function rmdir;
-use function scandir;
 use function time;
 
 final class Main extends PluginBase{
@@ -62,7 +59,7 @@ final class Main extends PluginBase{
 		if($this->interceptor->isEnabled()){
 			$this->interceptor->disable();
 
-			$path = $this->getDataFolder() . "console-exporter-" . time() . ".html";
+			$path = $this->getDataFolder() . "console-exporter-" . date("Y-m-d-H-i-s") . ".html";
 			$buffer = $this->interceptor->flushBuffer();
 			$this->exporter->export($path, $buffer);
 			$sender->sendMessage(
