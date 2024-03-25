@@ -133,4 +133,4 @@ Distributed under the **LGPL 3.0**. See [LICENSE][license-url] for more informat
 
 [project-icon]: https://raw.githubusercontent.com/presentkim-pm/ConsoleExporter/main/assets/icon.png
 
-[project-preview]: https://raw.githubusercontent.com/presentkim-pm/ConsoleExporter/main/assets/preview.gif
+[project-preview]: https://raw.githubusercontent.com/presentkim-pm/ConsoleExporter/main/assets/preview.png
