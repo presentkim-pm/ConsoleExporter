@@ -34,42 +34,42 @@ use pocketmine\utils\TextFormat;
 
 use function date;
 use function file_get_contents;
-use function time;
 
 final class Main extends PluginBase{
-	private ConsoleOutputInterceptor $interceptor;
-	private ConsoleOutputExporter $exporter;
 
-	protected function onLoad() : void{
-		$this->interceptor = new ConsoleOutputInterceptor($this);
-		$this->exporter = new ConsoleOutputExporter(
-			file_get_contents($this->getResourcePath("template.html")),
-			file_get_contents($this->getResourcePath("template.js")),
-			file_get_contents($this->getResourcePath("template.css")),
-			file_get_contents($this->getResourcePath("template.svg"))
-		);
-	}
+    private ConsoleOutputInterceptor $interceptor;
+    private ConsoleOutputExporter $exporter;
 
-	protected function onDisable() : void{
-		$this->interceptor->disable();
-		$this->interceptor->flushBuffer();
-	}
+    protected function onLoad() : void{
+        $this->interceptor = new ConsoleOutputInterceptor($this);
+        $this->exporter = new ConsoleOutputExporter(
+            file_get_contents($this->getResourcePath("template.html")),
+            file_get_contents($this->getResourcePath("template.js")),
+            file_get_contents($this->getResourcePath("template.css")),
+            file_get_contents($this->getResourcePath("template.svg"))
+        );
+    }
 
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
-		if($this->interceptor->isEnabled()){
-			$this->interceptor->disable();
+    protected function onDisable() : void{
+        $this->interceptor->disable();
+        $this->interceptor->flushBuffer();
+    }
 
-			$path = $this->getDataFolder() . "console-exporter-" . date("Y-m-d-H-i-s") . ".html";
-			$buffer = $this->interceptor->flushBuffer();
-			$this->exporter->export($path, $buffer);
-			$sender->sendMessage(
-				TextFormat::GREEN . "Console recoding stopped. File exported to " .
-				TextFormat::DARK_GREEN . $path
-			);
-		}else{
-			$this->interceptor->enable();
-			$sender->sendMessage(TextFormat::GREEN . "Console recoding started");
-		}
-		return true;
-	}
+    public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
+        if($this->interceptor->isEnabled()){
+            $this->interceptor->disable();
+
+            $path = $this->getDataFolder() . "console-exporter-" . date("Y-m-d-H-i-s") . ".html";
+            $buffer = $this->interceptor->flushBuffer();
+            $this->exporter->export($path, $buffer);
+            $sender->sendMessage(
+                TextFormat::GREEN . "Console recoding stopped. File exported to " .
+                TextFormat::DARK_GREEN . $path
+            );
+        }else{
+            $this->interceptor->enable();
+            $sender->sendMessage(TextFormat::GREEN . "Console recoding started");
+        }
+        return true;
+    }
 }

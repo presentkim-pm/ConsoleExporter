@@ -38,99 +38,100 @@ use function preg_replace;
 use function rtrim;
 
 final class ConsoleOutputExporter{
-	private readonly string $template;
 
-	public function __construct(
-		string $templateHtml,
-		string $templateScript,
-		string $templateStyle,
-		string $templateControls
-	){
-		$this->template = strtr($templateHtml, [
-			"<!--[SCRIPT]-->" => $this->wrapTag("script", $templateScript),
-			"<!--[STYLE]-->" => $this->wrapTag("style", $templateStyle),
-			"<!--[CONTROLS]-->" => $templateControls,
-		]);
-	}
+    private readonly string $template;
 
-	public function export(string $path, string $buffer) : void{
-		$buffer = rtrim($buffer);
-		$buffer = $this->convertHtmlEntities($buffer);
-		$buffer = $this->convertTerminalCodes($buffer);
+    public function __construct(
+        string $templateHtml,
+        string $templateScript,
+        string $templateStyle,
+        string $templateControls
+    ){
+        $this->template = strtr($templateHtml, [
+            "<!--[SCRIPT]-->" => $this->wrapTag("script", $templateScript),
+            "<!--[STYLE]-->" => $this->wrapTag("style", $templateStyle),
+            "<!--[CONTROLS]-->" => $templateControls,
+        ]);
+    }
 
-		$contents = "";
-		$classes = [];
-		foreach(TextFormat::tokenize($buffer) as $token){
-			if($token === TextFormat::RESET){
-				$classes = [];
-			}elseif(preg_match("/" . TextFormat::ESCAPE . "([0-9a-g])/u", $token, $matches) > 0){
-				$classes[0] = "t$matches[1]";
-			}elseif(preg_match("/" . TextFormat::ESCAPE . "([k-o])/u", $token, $matches) > 0){
-				$classes[ord($matches[1])] = "t$matches[1]";
-			}elseif(!empty($classes)){
-				$contents .= $this->wrapTag("span", $token, implode(" ", $classes));
-			}else{
-				$contents .= $token;
-			}
-		}
+    public function export(string $path, string $buffer) : void{
+        $buffer = rtrim($buffer);
+        $buffer = $this->convertHtmlEntities($buffer);
+        $buffer = $this->convertTerminalCodes($buffer);
 
-		$contents = strtr($this->template, ["<!--[CONTENTS]-->" => $contents]);
-		$contents = preg_replace("/\s+\r*\n*\s*/", " ", $contents);
-		file_put_contents($path, $contents);
-	}
+        $contents = "";
+        $classes = [];
+        foreach(TextFormat::tokenize($buffer) as $token){
+            if($token === TextFormat::RESET){
+                $classes = [];
+            }elseif(preg_match("/" . TextFormat::ESCAPE . "([0-9a-g])/u", $token, $matches) > 0){
+                $classes[0] = "t$matches[1]";
+            }elseif(preg_match("/" . TextFormat::ESCAPE . "([k-o])/u", $token, $matches) > 0){
+                $classes[ord($matches[1])] = "t$matches[1]";
+            }elseif(!empty($classes)){
+                $contents .= $this->wrapTag("span", $token, implode(" ", $classes));
+            }else{
+                $contents .= $token;
+            }
+        }
 
-	/**
-	 * Convert special characters to HTML entities
-	 * In addition to the 'htmlspecialchars()' it contains spaces (" ") and line breaks ("\r", "\n").
-	 */
-	private function convertHtmlEntities(string $str) : string{
-		return strtr($str, [
-			" " => "&nbsp;", // space
-			"\r" => "",      // carrge return
-			"\n" => "<br/>", // line feed
-			"&" => "&amp",   // ampersand
-			"\"" => "&quot", // double quote
-			"'" => "&apos",  // single quote
-			"<" => "&lt",    // less than
-			">" => "&gt"     // greater than
-		]);
-	}
+        $contents = strtr($this->template, ["<!--[CONTENTS]-->" => $contents]);
+        $contents = preg_replace("/\s+\r*\n*\s*/", " ", $contents);
+        file_put_contents($path, $contents);
+    }
 
-	/**
-	 * Convert terminal codes to text format codes
-	 */
-	private function convertTerminalCodes(string $str) : string{
-		return strtr($str, [
-			Terminal::$FORMAT_RESET => TextFormat::RESET,
-			Terminal::$FORMAT_BOLD => TextFormat::BOLD,
-			Terminal::$FORMAT_OBFUSCATED ?: TextFormat::OBFUSCATED => TextFormat::OBFUSCATED,
-			Terminal::$FORMAT_ITALIC => TextFormat::ITALIC,
-			Terminal::$FORMAT_UNDERLINE => TextFormat::UNDERLINE,
-			Terminal::$FORMAT_STRIKETHROUGH => TextFormat::STRIKETHROUGH,
-			Terminal::$COLOR_BLACK => TextFormat::BLACK,
-			Terminal::$COLOR_DARK_BLUE => TextFormat::DARK_BLUE,
-			Terminal::$COLOR_DARK_GREEN => TextFormat::DARK_GREEN,
-			Terminal::$COLOR_DARK_AQUA => TextFormat::DARK_AQUA,
-			Terminal::$COLOR_DARK_RED => TextFormat::DARK_RED,
-			Terminal::$COLOR_PURPLE => TextFormat::DARK_PURPLE,
-			Terminal::$COLOR_GOLD => TextFormat::GOLD,
-			Terminal::$COLOR_GRAY => TextFormat::GRAY,
-			Terminal::$COLOR_DARK_GRAY => TextFormat::DARK_GRAY,
-			Terminal::$COLOR_BLUE => TextFormat::BLUE,
-			Terminal::$COLOR_GREEN => TextFormat::GREEN,
-			Terminal::$COLOR_AQUA => TextFormat::AQUA,
-			Terminal::$COLOR_RED => TextFormat::RED,
-			Terminal::$COLOR_LIGHT_PURPLE => TextFormat::LIGHT_PURPLE,
-			Terminal::$COLOR_YELLOW => TextFormat::YELLOW,
-			Terminal::$COLOR_WHITE => TextFormat::WHITE,
-			Terminal::$COLOR_MINECOIN_GOLD => TextFormat::MINECOIN_GOLD,
-		]);
-	}
+    /**
+     * Convert special characters to HTML entities
+     * In addition to the 'htmlspecialchars()' it contains spaces (" ") and line breaks ("\r", "\n").
+     */
+    private function convertHtmlEntities(string $str) : string{
+        return strtr($str, [
+            " " => "&nbsp;", // space
+            "\r" => "",      // carrge return
+            "\n" => "<br/>", // line feed
+            "&" => "&amp",   // ampersand
+            "\"" => "&quot", // double quote
+            "'" => "&apos",  // single quote
+            "<" => "&lt",    // less than
+            ">" => "&gt"     // greater than
+        ]);
+    }
 
-	private function wrapTag(string $tag, string $innerHTML, string $classList = "") : string{
-		if($classList === ""){
-			return "<$tag>$innerHTML</$tag>";
-		}
-		return "<$tag class=\"$classList\">$innerHTML</$tag>";
-	}
+    /**
+     * Convert terminal codes to text format codes
+     */
+    private function convertTerminalCodes(string $str) : string{
+        return strtr($str, [
+            Terminal::$FORMAT_RESET => TextFormat::RESET,
+            Terminal::$FORMAT_BOLD => TextFormat::BOLD,
+            Terminal::$FORMAT_OBFUSCATED ?: TextFormat::OBFUSCATED => TextFormat::OBFUSCATED,
+            Terminal::$FORMAT_ITALIC => TextFormat::ITALIC,
+            Terminal::$FORMAT_UNDERLINE => TextFormat::UNDERLINE,
+            Terminal::$FORMAT_STRIKETHROUGH => TextFormat::STRIKETHROUGH,
+            Terminal::$COLOR_BLACK => TextFormat::BLACK,
+            Terminal::$COLOR_DARK_BLUE => TextFormat::DARK_BLUE,
+            Terminal::$COLOR_DARK_GREEN => TextFormat::DARK_GREEN,
+            Terminal::$COLOR_DARK_AQUA => TextFormat::DARK_AQUA,
+            Terminal::$COLOR_DARK_RED => TextFormat::DARK_RED,
+            Terminal::$COLOR_PURPLE => TextFormat::DARK_PURPLE,
+            Terminal::$COLOR_GOLD => TextFormat::GOLD,
+            Terminal::$COLOR_GRAY => TextFormat::GRAY,
+            Terminal::$COLOR_DARK_GRAY => TextFormat::DARK_GRAY,
+            Terminal::$COLOR_BLUE => TextFormat::BLUE,
+            Terminal::$COLOR_GREEN => TextFormat::GREEN,
+            Terminal::$COLOR_AQUA => TextFormat::AQUA,
+            Terminal::$COLOR_RED => TextFormat::RED,
+            Terminal::$COLOR_LIGHT_PURPLE => TextFormat::LIGHT_PURPLE,
+            Terminal::$COLOR_YELLOW => TextFormat::YELLOW,
+            Terminal::$COLOR_WHITE => TextFormat::WHITE,
+            Terminal::$COLOR_MINECOIN_GOLD => TextFormat::MINECOIN_GOLD,
+        ]);
+    }
+
+    private function wrapTag(string $tag, string $innerHTML, string $classList = "") : string{
+        if($classList === ""){
+            return "<$tag>$innerHTML</$tag>";
+        }
+        return "<$tag class=\"$classList\">$innerHTML</$tag>";
+    }
 }
